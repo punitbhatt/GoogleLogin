@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "545636325411",
+    "project_id": "sylvan-stream-142010"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545636325411:android:beeaf8cecbc49c12",
+        "android_client_info": {
+          "package_name": "com.example.android.googlelogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "545636325411-7nu2hf4cirbtp00m1aqs27lg8iuvpfie.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.googlelogin",
+            "certificate_hash": "C0D9DCC3E7FAE70738C889C91C8B1A615C3817F7"
+          }
+        },
+        {
+          "client_id": "545636325411-jl10k2747uc6frptjb7vq4peh80hj89s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-o-wU0sKmSDXjRYomg1HktL_XAKtcCao"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
