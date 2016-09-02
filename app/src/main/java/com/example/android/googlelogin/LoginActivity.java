@@ -1,6 +1,7 @@
 package com.example.android.googlelogin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,10 +30,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private GoogleApiClient mGoogleApiClient;
 
     private int RC_SIGN_IN = 100;
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sp = getSharedPreferences("PROFILE",MODE_PRIVATE);
+        String name = sp.getString("FNAME",null);
+        String img_url = sp.getString("IMAGE_URL",null);
+        if(name!=null && img_url!=null){
+            Intent intent = new Intent(this,SecActivity.class);
+            intent.putExtra("FNAME", name);
+            intent.putExtra("IMAGE_URL",img_url);
+            startActivity(intent);
+            finish();
+        }
         setContentView(R.layout.activity_login);
 
         //Initializing google signin option
@@ -61,7 +73,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
 
         //Starting intent for result
-        System.out.println("here 2");
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
@@ -83,12 +94,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (result.isSuccess()) {
             //Getting google account
 
-            System.out.println("here 3");
             GoogleSignInAccount acct = result.getSignInAccount();
             Intent intent = new Intent(this,SecActivity.class);
             intent.putExtra("FNAME", acct.getDisplayName());
             intent.putExtra("IMAGE_URL",acct.getPhotoUrl().toString());
-            System.out.println(acct.getPhotoUrl());
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("FNAME",acct.getDisplayName());
+            editor.putString("IMAGE_URL",acct.getPhotoUrl().toString());
+            editor.commit();
             startActivity(intent);
             finish();
         } else {
@@ -100,7 +113,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         if (v == signInButton) {
             //Calling signin
-            System.out.println("here 1");
             signIn();
         }
     }

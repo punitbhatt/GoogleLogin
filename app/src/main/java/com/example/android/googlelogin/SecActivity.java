@@ -1,6 +1,7 @@
 package com.example.android.googlelogin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -46,7 +47,6 @@ public class SecActivity extends AppCompatActivity {
 
         ImageView im = (ImageView)findViewById(R.id.image1);
         try {
-            System.out.println(intent.getStringExtra("IMAGE_URL"));
             new DownloadImage().execute(intent.getStringExtra("IMAGE_URL")).get();
         }catch (InterruptedException e){
             e.printStackTrace();
@@ -80,6 +80,10 @@ public class SecActivity extends AppCompatActivity {
                     @Override
                     public void onResult(Status status) {
                         // ...
+                        SharedPreferences sp = getSharedPreferences("PROFILE",MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.clear();
+                        editor.commit();
                         Toast.makeText(getApplicationContext(),"Logged Out", Toast.LENGTH_SHORT).show();
                         Intent i=new Intent(getApplicationContext(),LoginActivity.class);
                         startActivity(i);
@@ -100,6 +104,5 @@ class DownloadImage extends AsyncTask<String,Integer,Long>{
         } catch (Exception e) {
             return null;
         }
-
     }
 }
